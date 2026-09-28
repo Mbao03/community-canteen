@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.kitchen.mapper.DishInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.example.kitchen.model.DishInfo">
+    <id column="dishId" jdbcType="INTEGER" property="dishId" />
+    <result column="dishName" jdbcType="VARCHAR" property="dishName" />
+    <result column="chefName" jdbcType="VARCHAR" property="chefName" />
+    <result column="dishPrice" jdbcType="DECIMAL" property="dishPrice" />
+    <result column="dishTypeId" jdbcType="INTEGER" property="dishTypeId" />
+    <result column="dishTypeName" jdbcType="VARCHAR" property="dishTypeName" />
+    <result column="dishDesc" jdbcType="VARCHAR" property="dishDesc" />
+    <result column="isReserved" jdbcType="TINYINT" property="isReserved" />
+    <result column="dishImg" jdbcType="VARCHAR" property="dishImg" />
+    <result column="kitchenName" jdbcType="VARCHAR" property="kitchenName" />
+    <result column="stockQty" jdbcType="INTEGER" property="stockQty" />
+    <result column="isAvailable" jdbcType="TINYINT" property="isAvailable" />
+    <result column="prepMinutes" jdbcType="INTEGER" property="prepMinutes" />
+    <result column="spiceLevel" jdbcType="TINYINT" property="spiceLevel" />
+    <result column="allergens" jdbcType="VARCHAR" property="allergens" />
+    <result column="caloriesKcal" jdbcType="DECIMAL" property="caloriesKcal" />
+    <result column="proteinG" jdbcType="DECIMAL" property="proteinG" />
+    <result column="fatG" jdbcType="DECIMAL" property="fatG" />
+    <result column="carbG" jdbcType="DECIMAL" property="carbG" />
+    <result column="createdAt" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updatedAt" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    dishId, dishName, chefName, dishPrice, dishTypeId, dishDesc, isReserved, dishImg,
+    kitchenName, stockQty, isAvailable, prepMinutes, spiceLevel, allergens,
+    caloriesKcal, proteinG, fatG, carbG, createdAt, updatedAt
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dish_info
+    where dishId = #{dishId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dish_info
+    where dishId = #{dishId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.kitchen.model.DishInfo">
+    insert into dish_info (dishId, dishName, chefName,
+      dishPrice, dishTypeId, dishDesc,
+      isReserved, dishImg)
+    values (#{dishId,jdbcType=INTEGER}, #{dishName,jdbcType=VARCHAR}, #{chefName,jdbcType=VARCHAR},
+      #{dishPrice,jdbcType=DECIMAL}, #{dishTypeId,jdbcType=INTEGER}, #{dishDesc,jdbcType=VARCHAR},
+      #{isReserved,jdbcType=TINYINT}, #{dishImg,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.example.kitchen.model.DishInfo">
+    insert into dish_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dishId != null">dishId,</if>
+      <if test="dishName != null">dishName,</if>
+      <if test="chefName != null">chefName,</if>
+      <if test="dishPrice != null">dishPrice,</if>
+      <if test="dishTypeId != null">dishTypeId,</if>
+      <if test="dishDesc != null">dishDesc,</if>
+      <if test="isReserved != null">isReserved,</if>
+      <if test="dishImg != null">dishImg,</if>
+      <if test="kitchenName != null">kitchenName,</if>
+      <if test="stockQty != null">stockQty,</if>
+      <if test="isAvailable != null">isAvailable,</if>
+      <if test="prepMinutes != null">prepMinutes,</if>
+      <if test="spiceLevel != null">spiceLevel,</if>
+      <if test="allergens != null">allergens,</if>
+      <if test="caloriesKcal != null">caloriesKcal,</if>
+      <if test="proteinG != null">proteinG,</if>
+      <if test="fatG != null">fatG,</if>
+      <if test="carbG != null">carbG,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dishId != null">#{dishId,jdbcType=INTEGER},</if>
+      <if test="dishName != null">#{dishName,jdbcType=VARCHAR},</if>
+      <if test="chefName != null">#{chefName,jdbcType=VARCHAR},</if>
+      <if test="dishPrice != null">#{dishPrice,jdbcType=DECIMAL},</if>
+      <if test="dishTypeId != null">#{dishTypeId,jdbcType=INTEGER},</if>
+      <if test="dishDesc != null">#{dishDesc,jdbcType=VARCHAR},</if>
+      <if test="isReserved != null">#{isReserved,jdbcType=TINYINT},</if>
+      <if test="dishImg != null">#{dishImg,jdbcType=VARCHAR},</if>
+      <if test="kitchenName != null">#{kitchenName,jdbcType=VARCHAR},</if>
+      <if test="stockQty != null">#{stockQty,jdbcType=INTEGER},</if>
+      <if test="isAvailable != null">#{isAvailable,jdbcType=TINYINT},</if>
+      <if test="prepMinutes != null">#{prepMinutes,jdbcType=INTEGER},</if>
+      <if test="spiceLevel != null">#{spiceLevel,jdbcType=TINYINT},</if>
+      <if test="allergens != null">#{allergens,jdbcType=VARCHAR},</if>
+      <if test="caloriesKcal != null">#{caloriesKcal,jdbcType=DECIMAL},</if>
+      <if test="proteinG != null">#{proteinG,jdbcType=DECIMAL},</if>
+      <if test="fatG != null">#{fatG,jdbcType=DECIMAL},</if>
+      <if test="carbG != null">#{carbG,jdbcType=DECIMAL},</if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.kitchen.model.DishInfo">
+    update dish_info
+    <set>
+      <if test="dishName != null">dishName = #{dishName,jdbcType=VARCHAR},</if>
+      <if test="chefName != null">chefName = #{chefName,jdbcType=VARCHAR},</if>
+      <if test="dishPrice != null">dishPrice = #{dishPrice,jdbcType=DECIMAL},</if>
+      <if test="dishTypeId != null">dishTypeId = #{dishTypeId,jdbcType=INTEGER},</if>
+      <if test="dishDesc != null">dishDesc = #{dishDesc,jdbcType=VARCHAR},</if>
+      <if test="isReserved != null">isReserved = #{isReserved,jdbcType=TINYINT},</if>
+      <if test="dishImg != null">dishImg = #{dishImg,jdbcType=VARCHAR},</if>
+      <if test="kitchenName != null">kitchenName = #{kitchenName,jdbcType=VARCHAR},</if>
+      <if test="stockQty != null">stockQty = #{stockQty,jdbcType=INTEGER},</if>
+      <if test="isAvailable != null">isAvailable = #{isAvailable,jdbcType=TINYINT},</if>
+      <if test="prepMinutes != null">prepMinutes = #{prepMinutes,jdbcType=INTEGER},</if>
+      <if test="spiceLevel != null">spiceLevel = #{spiceLevel,jdbcType=TINYINT},</if>
+      <if test="allergens != null">allergens = #{allergens,jdbcType=VARCHAR},</if>
+      <if test="caloriesKcal != null">caloriesKcal = #{caloriesKcal,jdbcType=DECIMAL},</if>
+      <if test="proteinG != null">proteinG = #{proteinG,jdbcType=DECIMAL},</if>
+      <if test="fatG != null">fatG = #{fatG,jdbcType=DECIMAL},</if>
+      <if test="carbG != null">carbG = #{carbG,jdbcType=DECIMAL},</if>
+    </set>
+    where dishId = #{dishId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.example.kitchen.model.DishInfo">
+    update dish_info
+    set dishName = #{dishName,jdbcType=VARCHAR},
+      chefName = #{chefName,jdbcType=VARCHAR},
+      dishPrice = #{dishPrice,jdbcType=DECIMAL},
+      dishTypeId = #{dishTypeId,jdbcType=INTEGER},
+      dishDesc = #{dishDesc,jdbcType=VARCHAR},
+      isReserved = #{isReserved,jdbcType=TINYINT},
+      dishImg = #{dishImg,jdbcType=VARCHAR}
+    where dishId = #{dishId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllByLimit" resultMap="BaseResultMap">
+    select dishId, dishName, chefName,dishPrice, dishTypeId, dishDesc,isReserved, dishImg,
+           kitchenName, stockQty, isAvailable, prepMinutes, spiceLevel, allergens,
+           caloriesKcal, proteinG, fatG, carbG, createdAt, updatedAt,
+           (select dishTypeName from dish_type where dish_type.dishTypeId = dish_info.dishTypeId) as dishTypeName
+    from dish_info
+    limit #{begin}, #{size}
+  </select>
+
+  <select id="selectCount" resultType="int">
+    select count(*) from dish_info
+  </select>
+
+  <select id="selectCountBySearch" resultType="int">
+    select count(*) from dish_info
+    <where>
+      <if test="dishName != null and dishName != '' ">
+        and dishName like concat('%',#{dishName},'%')
+      </if>
+      <if test="chefName != null and chefName != '' ">
+        and chefName like concat('%',#{chefName},'%')
+      </if>
+      <if test="dishTypeId != null and dishTypeId != '' ">
+        and dishTypeId = #{dishTypeId}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectBySearch" resultMap="BaseResultMap">
+    select dishId, dishName, chefName,dishPrice, dishTypeId, dishDesc,isReserved, dishImg,
+           kitchenName, stockQty, isAvailable, prepMinutes, spiceLevel, allergens,
+           caloriesKcal, proteinG, fatG, carbG, createdAt, updatedAt,
+           (select dishTypeName from dish_type where dish_type.dishTypeId = dish_info.dishTypeId) as dishTypeName
+    from dish_info
+    <where>
+      <if test="dishName != null and dishName != '' ">
+        and dishName like concat('%',#{dishName},'%')
+      </if>
+      <if test="chefName != null and chefName != '' ">
+        and chefName like concat('%',#{chefName},'%')
+      </if>
+      <if test="dishTypeId != null and dishTypeId != '' ">
+        and dishTypeId = #{dishTypeId}
+      </if>
+    </where>
+    limit #{begin}, #{size}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select dishId, dishName, chefName,dishPrice, dishTypeId, dishDesc,isReserved, dishImg,
+           kitchenName, stockQty, isAvailable, prepMinutes, spiceLevel, allergens,
+           caloriesKcal, proteinG, fatG, carbG, createdAt, updatedAt,
+           (select dishTypeName from dish_type where dish_type.dishTypeId = dish_info.dishTypeId) as dishTypeName
+    from dish_info
+  </select>
+
+  <select id="selectCountByType" resultType="int">
+    select count(*) from dish_info
+    <where>
+      <if test="dishTypeId != null and dishTypeId != '' ">
+        and dishTypeId = #{dishTypeId}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByType" resultMap="BaseResultMap">
+    select dishId, dishName, chefName,dishPrice, dishTypeId, dishDesc,isReserved, dishImg,
+    kitchenName, stockQty, isAvailable, prepMinutes, spiceLevel, allergens,
+    caloriesKcal, proteinG, fatG, carbG, createdAt, updatedAt,
+    (select dishTypeName from dish_type where dish_type.dishTypeId = dish_info.dishTypeId) as dishTypeName
+    from dish_info
+    <where>
+      <if test="dishTypeId != null and dishTypeId != '' ">
+        and dishTypeId = #{dishTypeId}
+      </if>
+    </where>
+    limit #{begin}, #{size}
+  </select>
+
+</mapper>

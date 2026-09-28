@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.kitchen.mapper.UserMapper">
+
+  <resultMap id="BaseResultMap" type="com.example.kitchen.model.User">
+    <id column="residentId" jdbcType="INTEGER" property="userid" />
+    <result column="residentName" jdbcType="VARCHAR" property="username" />
+    <result column="residentPassword" jdbcType="VARCHAR" property="userpassword" />
+    <result column="roleType" jdbcType="TINYINT" property="isadmin" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="buildingNo" jdbcType="VARCHAR" property="buildingNo" />
+    <result column="unitNo" jdbcType="VARCHAR" property="unitNo" />
+    <result column="roomNo" jdbcType="VARCHAR" property="roomNo" />
+    <result column="dietaryTags" jdbcType="VARCHAR" property="dietaryTags" />
+    <result column="healthNotes" jdbcType="VARCHAR" property="healthNotes" />
+    <result column="isActive" jdbcType="TINYINT" property="isActive" />
+    <result column="createdAt" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updatedAt" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="lastLoginAt" jdbcType="TIMESTAMP" property="lastLoginAt" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    residentId, residentName, residentPassword, roleType,
+    phone, gender, birthday, buildingNo, unitNo, roomNo,
+    dietaryTags, healthNotes, isActive, createdAt, updatedAt, lastLoginAt
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from resident
+    where residentId = #{userid,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from resident
+    where residentId = #{userid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.kitchen.model.User">
+    insert into resident (residentId, residentName, residentPassword,
+      roleType)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR},
+      #{isadmin,jdbcType=TINYINT})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.example.kitchen.model.User">
+    insert into resident
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">residentId,</if>
+      <if test="username != null">residentName,</if>
+      <if test="userpassword != null">residentPassword,</if>
+      <if test="isadmin != null">roleType,</if>
+      <if test="phone != null">phone,</if>
+      <if test="gender != null">gender,</if>
+      <if test="birthday != null">birthday,</if>
+      <if test="buildingNo != null">buildingNo,</if>
+      <if test="unitNo != null">unitNo,</if>
+      <if test="roomNo != null">roomNo,</if>
+      <if test="dietaryTags != null">dietaryTags,</if>
+      <if test="healthNotes != null">healthNotes,</if>
+      <if test="isActive != null">isActive,</if>
+      <if test="lastLoginAt != null">lastLoginAt,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">#{userid,jdbcType=INTEGER},</if>
+      <if test="username != null">#{username,jdbcType=VARCHAR},</if>
+      <if test="userpassword != null">#{userpassword,jdbcType=VARCHAR},</if>
+      <if test="isadmin != null">#{isadmin,jdbcType=TINYINT},</if>
+      <if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+      <if test="gender != null">#{gender,jdbcType=VARCHAR},</if>
+      <if test="birthday != null">#{birthday,jdbcType=DATE},</if>
+      <if test="buildingNo != null">#{buildingNo,jdbcType=VARCHAR},</if>
+      <if test="unitNo != null">#{unitNo,jdbcType=VARCHAR},</if>
+      <if test="roomNo != null">#{roomNo,jdbcType=VARCHAR},</if>
+      <if test="dietaryTags != null">#{dietaryTags,jdbcType=VARCHAR},</if>
+      <if test="healthNotes != null">#{healthNotes,jdbcType=VARCHAR},</if>
+      <if test="isActive != null">#{isActive,jdbcType=TINYINT},</if>
+      <if test="lastLoginAt != null">#{lastLoginAt,jdbcType=TIMESTAMP},</if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.kitchen.model.User">
+    update resident
+    <set>
+      <if test="username != null">residentName = #{username,jdbcType=VARCHAR},</if>
+      <if test="userpassword != null">residentPassword = #{userpassword,jdbcType=VARCHAR},</if>
+      <if test="isadmin != null">roleType = #{isadmin,jdbcType=TINYINT},</if>
+      <if test="phone != null">phone = #{phone,jdbcType=VARCHAR},</if>
+      <if test="gender != null">gender = #{gender,jdbcType=VARCHAR},</if>
+      <if test="birthday != null">birthday = #{birthday,jdbcType=DATE},</if>
+      <if test="buildingNo != null">buildingNo = #{buildingNo,jdbcType=VARCHAR},</if>
+      <if test="unitNo != null">unitNo = #{unitNo,jdbcType=VARCHAR},</if>
+      <if test="roomNo != null">roomNo = #{roomNo,jdbcType=VARCHAR},</if>
+      <if test="dietaryTags != null">dietaryTags = #{dietaryTags,jdbcType=VARCHAR},</if>
+      <if test="healthNotes != null">healthNotes = #{healthNotes,jdbcType=VARCHAR},</if>
+      <if test="isActive != null">isActive = #{isActive,jdbcType=TINYINT},</if>
+      <if test="lastLoginAt != null">lastLoginAt = #{lastLoginAt,jdbcType=TIMESTAMP},</if>
+    </set>
+    where residentId = #{userid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.example.kitchen.model.User">
+    update resident
+    set residentName = #{username,jdbcType=VARCHAR},
+      residentPassword = #{userpassword,jdbcType=VARCHAR},
+      roleType = #{isadmin,jdbcType=TINYINT}
+    where residentId = #{userid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUsernameAndPasswordAndIsAdmin" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from resident
+    where residentName = #{username}
+      and residentPassword = #{password}
+      and roleType = #{isAdmin}
+    limit 1
+  </select>
+
+  <select id="selectByUsername" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from resident
+    where residentName = #{username}
+    limit 1
+  </select>
+
+  <select id="selectAllByLimit" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from resident
+    limit #{begin}, #{size}
+  </select>
+
+  <select id="selectCount" resultType="int">
+    select count(*) from resident
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from resident
+  </select>
+
+  <select id="selectCountBySearch" resultType="int">
+    select count(*) from resident
+    <where>
+      <if test="username != null and username != '' ">
+        and residentName like concat('%',#{username},'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectBySearch" resultMap="BaseResultMap">
+    select residentId, residentName, residentPassword, roleType,
+           phone, gender, birthday, buildingNo, unitNo, roomNo,
+           dietaryTags, healthNotes, isActive, createdAt, updatedAt, lastLoginAt
+    from resident
+    <where>
+      <if test="username != null and username != '' ">
+        and residentName like concat('%',#{username},'%')
+      </if>
+    </where>
+    limit #{begin}, #{size}
+  </select>
+
+</mapper>

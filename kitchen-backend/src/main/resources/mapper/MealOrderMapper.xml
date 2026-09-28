@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.kitchen.mapper.MealOrderMapper">
+
+  <resultMap id="BaseResultMap" type="com.example.kitchen.model.MealOrder">
+    <id column="orderId" jdbcType="INTEGER" property="MealOrderid" />
+    <result column="residentId" jdbcType="INTEGER" property="userid" />
+    <result column="residentName" jdbcType="VARCHAR" property="username" />
+    <result column="dishId" jdbcType="INTEGER" property="dishId" />
+    <result column="dishName" jdbcType="VARCHAR" property="dishName" />
+    <result column="orderTime" jdbcType="TIMESTAMP" property="MealOrdertime" />
+    <result column="completeTime" jdbcType="TIMESTAMP" property="returntime" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="unitPrice" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="totalPrice" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="orderStatus" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="mealDate" jdbcType="DATE" property="mealDate" />
+    <result column="mealSlot" jdbcType="VARCHAR" property="mealSlot" />
+    <result column="deliveryType" jdbcType="VARCHAR" property="deliveryType" />
+    <result column="pickupCode" jdbcType="VARCHAR" property="pickupCode" />
+    <result column="contactPhone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="deliveryAddress" jdbcType="VARCHAR" property="deliveryAddress" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="payStatus" jdbcType="VARCHAR" property="payStatus" />
+    <result column="paidAt" jdbcType="TIMESTAMP" property="paidAt" />
+    <result column="cancelReason" jdbcType="VARCHAR" property="cancelReason" />
+    <result column="createdAt" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updatedAt" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    orderId, residentId, dishId, orderTime, completeTime,
+    quantity, unitPrice, totalPrice, orderStatus, mealDate, mealSlot,
+    deliveryType, pickupCode, contactPhone, deliveryAddress, remark,
+    payStatus, paidAt, cancelReason, createdAt, updatedAt
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from meal_order
+    where orderId = #{MealOrderid,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from meal_order
+    where orderId = #{MealOrderid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.kitchen.model.MealOrder">
+    insert into meal_order (orderId, residentId, dishId,
+      orderTime, completeTime)
+    values (#{MealOrderid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{dishId,jdbcType=INTEGER},
+      #{MealOrdertime,jdbcType=TIMESTAMP}, #{returntime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.example.kitchen.model.MealOrder">
+    insert into meal_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="MealOrderid != null">orderId,</if>
+      <if test="userid != null">residentId,</if>
+      <if test="dishId != null">dishId,</if>
+      <if test="MealOrdertime != null">orderTime,</if>
+      <if test="returntime != null">completeTime,</if>
+      <if test="quantity != null">quantity,</if>
+      <if test="unitPrice != null">unitPrice,</if>
+      <if test="totalPrice != null">totalPrice,</if>
+      <if test="orderStatus != null">orderStatus,</if>
+      <if test="mealDate != null">mealDate,</if>
+      <if test="mealSlot != null">mealSlot,</if>
+      <if test="deliveryType != null">deliveryType,</if>
+      <if test="pickupCode != null">pickupCode,</if>
+      <if test="contactPhone != null">contactPhone,</if>
+      <if test="deliveryAddress != null">deliveryAddress,</if>
+      <if test="remark != null">remark,</if>
+      <if test="payStatus != null">payStatus,</if>
+      <if test="paidAt != null">paidAt,</if>
+      <if test="cancelReason != null">cancelReason,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="MealOrderid != null">#{MealOrderid,jdbcType=INTEGER},</if>
+      <if test="userid != null">#{userid,jdbcType=INTEGER},</if>
+      <if test="dishId != null">#{dishId,jdbcType=INTEGER},</if>
+      <if test="MealOrdertime != null">#{MealOrdertime,jdbcType=TIMESTAMP},</if>
+      <if test="returntime != null">#{returntime,jdbcType=TIMESTAMP},</if>
+      <if test="quantity != null">#{quantity,jdbcType=INTEGER},</if>
+      <if test="unitPrice != null">#{unitPrice,jdbcType=DECIMAL},</if>
+      <if test="totalPrice != null">#{totalPrice,jdbcType=DECIMAL},</if>
+      <if test="orderStatus != null">#{orderStatus,jdbcType=VARCHAR},</if>
+      <if test="mealDate != null">#{mealDate,jdbcType=DATE},</if>
+      <if test="mealSlot != null">#{mealSlot,jdbcType=VARCHAR},</if>
+      <if test="deliveryType != null">#{deliveryType,jdbcType=VARCHAR},</if>
+      <if test="pickupCode != null">#{pickupCode,jdbcType=VARCHAR},</if>
+      <if test="contactPhone != null">#{contactPhone,jdbcType=VARCHAR},</if>
+      <if test="deliveryAddress != null">#{deliveryAddress,jdbcType=VARCHAR},</if>
+      <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+      <if test="payStatus != null">#{payStatus,jdbcType=VARCHAR},</if>
+      <if test="paidAt != null">#{paidAt,jdbcType=TIMESTAMP},</if>
+      <if test="cancelReason != null">#{cancelReason,jdbcType=VARCHAR},</if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.kitchen.model.MealOrder">
+    update meal_order
+    <set>
+      <if test="userid != null">residentId = #{userid,jdbcType=INTEGER},</if>
+      <if test="dishId != null">dishId = #{dishId,jdbcType=INTEGER},</if>
+      <if test="MealOrdertime != null">orderTime = #{MealOrdertime,jdbcType=TIMESTAMP},</if>
+      <if test="returntime != null">completeTime = #{returntime,jdbcType=TIMESTAMP},</if>
+      <if test="quantity != null">quantity = #{quantity,jdbcType=INTEGER},</if>
+      <if test="unitPrice != null">unitPrice = #{unitPrice,jdbcType=DECIMAL},</if>
+      <if test="totalPrice != null">totalPrice = #{totalPrice,jdbcType=DECIMAL},</if>
+      <if test="orderStatus != null">orderStatus = #{orderStatus,jdbcType=VARCHAR},</if>
+      <if test="mealDate != null">mealDate = #{mealDate,jdbcType=DATE},</if>
+      <if test="mealSlot != null">mealSlot = #{mealSlot,jdbcType=VARCHAR},</if>
+      <if test="deliveryType != null">deliveryType = #{deliveryType,jdbcType=VARCHAR},</if>
+      <if test="pickupCode != null">pickupCode = #{pickupCode,jdbcType=VARCHAR},</if>
+      <if test="contactPhone != null">contactPhone = #{contactPhone,jdbcType=VARCHAR},</if>
+      <if test="deliveryAddress != null">deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR},</if>
+      <if test="remark != null">remark = #{remark,jdbcType=VARCHAR},</if>
+      <if test="payStatus != null">payStatus = #{payStatus,jdbcType=VARCHAR},</if>
+      <if test="paidAt != null">paidAt = #{paidAt,jdbcType=TIMESTAMP},</if>
+      <if test="cancelReason != null">cancelReason = #{cancelReason,jdbcType=VARCHAR},</if>
+    </set>
+    where orderId = #{MealOrderid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.example.kitchen.model.MealOrder">
+    update meal_order
+    set residentId = #{userid,jdbcType=INTEGER},
+      dishId = #{dishId,jdbcType=INTEGER},
+      orderTime = #{MealOrdertime,jdbcType=TIMESTAMP},
+      completeTime = #{returntime,jdbcType=TIMESTAMP}
+    where orderId = #{MealOrderid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllByLimit" resultMap="BaseResultMap">
+    select orderId, residentId, dishId, orderTime, completeTime,
+           quantity, unitPrice, totalPrice, orderStatus, mealDate, mealSlot,
+           deliveryType, pickupCode, contactPhone, deliveryAddress, remark,
+           payStatus, paidAt, cancelReason, createdAt, updatedAt,
+           (select residentName from resident where meal_order.residentId = resident.residentId) residentName,
+           (select dishName from dish_info where meal_order.dishId = dish_info.dishId) dishName
+    from meal_order
+    limit #{begin}, #{size}
+  </select>
+
+  <select id="selectCount" resultType="int">
+    select count(*) from meal_order
+  </select>
+
+  <select id="selectCountBySearch" resultType="int">
+    select count(*)
+    from meal_order, resident, dish_info
+    where meal_order.residentId = resident.residentId and meal_order.dishId = dish_info.dishId
+    <if test="username != null and username != '' ">
+      and residentName like concat('%',#{username},'%')
+    </if>
+    <if test="dishName != null and dishName != '' ">
+      and dishName like concat('%',#{dishName},'%')
+    </if>
+    <if test="dishName != null and dishName != '' ">
+      and dishName like concat('%',#{dishName},'%')
+    </if>
+    <if test="userid != null and userid != '' ">
+      and meal_order.residentId = #{userid}
+    </if>
+    <if test="residentId != null and residentId != '' ">
+      and meal_order.residentId = #{residentId}
+    </if>
+  </select>
+
+  <select id="selectBySearch" resultMap="BaseResultMap">
+    select meal_order.orderId, meal_order.residentId, meal_order.dishId, meal_order.orderTime, meal_order.completeTime,
+           meal_order.quantity, meal_order.unitPrice, meal_order.totalPrice, meal_order.orderStatus, meal_order.mealDate, meal_order.mealSlot,
+           meal_order.deliveryType, meal_order.pickupCode, meal_order.contactPhone, meal_order.deliveryAddress, meal_order.remark,
+           meal_order.payStatus, meal_order.paidAt, meal_order.cancelReason, meal_order.createdAt, meal_order.updatedAt,
+           residentName, dishName
+    from meal_order, resident, dish_info
+    where meal_order.residentId = resident.residentId and meal_order.dishId = dish_info.dishId
+    <if test="username != null and username != '' ">
+      and residentName like concat('%',#{username},'%')
+    </if>
+    <if test="dishName != null and dishName != '' ">
+      and dishName like concat('%',#{dishName},'%')
+    </if>
+    <if test="dishName != null and dishName != '' ">
+      and dishName like concat('%',#{dishName},'%')
+    </if>
+    <if test="userid != null and userid != '' ">
+      and meal_order.residentId = #{userid}
+    </if>
+    <if test="residentId != null and residentId != '' ">
+      and meal_order.residentId = #{residentId}
+    </if>
+    order by field(orderStatus, 'PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELLED'), createdAt desc
+    limit #{begin}, #{size}
+  </select>
+
+  <select id="selectCountByReader" resultType="int">
+    select count(*) from meal_order
+    where residentId = #{userid}
+  </select>
+
+  <select id="selectAllByLimitByReader" resultMap="BaseResultMap">
+    select orderId, residentId, dishId, orderTime, completeTime,
+           quantity, unitPrice, totalPrice, orderStatus, mealDate, mealSlot,
+           deliveryType, pickupCode, contactPhone, deliveryAddress, remark,
+           payStatus, paidAt, cancelReason, createdAt, updatedAt,
+           (select residentName from resident where meal_order.residentId = resident.residentId) residentName,
+           (select dishName from dish_info where meal_order.dishId = dish_info.dishId) dishName
+    from meal_order
+    where residentId = #{userid}
+    limit #{begin}, #{size}
+  </select>
+
+  <select id="selectAllForRecommend" resultMap="BaseResultMap">
+    select orderId, residentId, dishId, orderTime, completeTime,
+           quantity, unitPrice, totalPrice, orderStatus, mealDate, mealSlot,
+           deliveryType, pickupCode, contactPhone, deliveryAddress, remark,
+           payStatus, paidAt, cancelReason, createdAt, updatedAt
+    from meal_order
+  </select>
+
+</mapper>
